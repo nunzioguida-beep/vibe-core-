@@ -42,7 +42,14 @@ app.post("/process", async (req: Request, res: Response) => {
     return;
   }
 
-  const reply = await generateReply(userMessage);
+  let reply: string;
+  try {
+    reply = await generateReply(userMessage);
+  } catch (err) {
+    console.error("Gemini error:", err);
+    res.status(500).json({ error: String(err) });
+    return;
+  }
 
   res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
 });
