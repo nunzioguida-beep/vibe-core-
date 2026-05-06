@@ -14,7 +14,7 @@ Rules:
 - If you cannot resolve an issue, direct the user to support.wellhub.com
 - Never make up information about specific gyms, prices, or policies you don't know`;
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY?.trim() });
 
 export async function generateReply(userMessage: string): Promise<string> {
   const completion = await groq.chat.completions.create({
