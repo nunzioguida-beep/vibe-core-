@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express, { Request, Response } from "express";
 import { generateReply } from "./agent";
+import { transcribeAudio } from "./transcribe";
 
 interface MessageEnvelope {
   messageId: string;
@@ -8,7 +9,8 @@ interface MessageEnvelope {
   timestamp: string;
   type: "text" | "audio";
   text?: string;
-  audioUrl?: string;
+  audioData?: string;
+  audioMimeType?: string;
 }
 
 interface AgentResponse {
@@ -25,10 +27,26 @@ app.post("/process", async (req: Request, res: Response) => {
   const envelope = req.body as MessageEnvelope;
 
   if (envelope.type === "audio") {
-    res.json({
-      reply: "Sorry, voice messages are not supported yet. Please send a text message.",
-      messageId: envelope.messageId,
-    } satisfies AgentResponse);
+    if (!envelope.audioData) {
+      res.json({ reply: "Non ho ricevuto l'audio. Riprova.", messageId: envelope.messageId } satisfies AgentResponse);
+      return;
+    }
+    let userMessage: string;
+    try {
+      userMessage = await transcribeAudio(envelope.audioData, envelope.audioMimeType ?? "audio/ogg");
+      console.log(`[core] transcribed: "${userMessage}"`);
+    } catch (err) {
+      console.error("Whisper error:", err);
+      res.json({ reply: "Non sono riuscito a capire il messaggio vocale. Puoi scriverlo?", messageId: envelope.messageId } satisfies AgentResponse);
+      return;
+    }
+    try {
+      const reply = await generateReply(userMessage);
+      res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
+    } catch (err) {
+      console.error("Groq error after transcription:", err);
+      res.status(500).json({ error: String(err) });
+    }
     return;
   }
 
