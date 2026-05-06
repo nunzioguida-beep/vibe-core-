@@ -56,11 +56,6 @@ app.post("/process", async (req: Request, res: Response) => {
 
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
-app.get("/debug-key", (_req, res) => {
-  const key = process.env.GROQ_API_KEY ?? "";
-  res.json({ length: key.length, prefix: key.slice(0, 8), suffix: key.slice(-4) });
-});
-
 app.listen(PORT, () => {
   console.log(`vibe-core listening on port ${PORT}`);
 });
