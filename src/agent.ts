@@ -23,12 +23,17 @@ interface HistoryMessage {
 
 export async function generateReply(
   userMessage: string,
-  history: HistoryMessage[] = []
+  history: HistoryMessage[] = [],
+  userName?: string
 ): Promise<string> {
+  const systemContent = userName
+    ? `${SYSTEM_PROMPT}\n\nThe user's verified name is: ${userName}.`
+    : SYSTEM_PROMPT;
+
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: systemContent },
       ...history,
       { role: "user", content: userMessage },
     ],

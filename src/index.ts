@@ -17,6 +17,7 @@ interface MessageEnvelope {
   audioData?: string;
   audioMimeType?: string;
   history?: HistoryMessage[];
+  userName?: string;
 }
 
 interface AgentResponse {
@@ -47,7 +48,7 @@ app.post("/process", async (req: Request, res: Response) => {
       return;
     }
     try {
-      const reply = await generateReply(userMessage, envelope.history);
+      const reply = await generateReply(userMessage, envelope.history, envelope.userName);
       res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
     } catch (err) {
       console.error("Groq error after transcription:", err);
@@ -68,7 +69,7 @@ app.post("/process", async (req: Request, res: Response) => {
 
   let reply: string;
   try {
-    reply = await generateReply(userMessage, envelope.history);
+    reply = await generateReply(userMessage, envelope.history, envelope.userName);
   } catch (err) {
     console.error("Gemini error:", err);
     res.status(500).json({ error: String(err) });
@@ -78,7 +79,7 @@ app.post("/process", async (req: Request, res: Response) => {
   res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
 });
 
-app.get("/health", (_req, res) => res.json({ status: "ok", version: "memory-v1" }));
+app.get("/health", (_req, res) => res.json({ status: "ok", version: "memory-v2" }));
 
 app.listen(PORT, () => {
   console.log(`vibe-core listening on port ${PORT}`);
