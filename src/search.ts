@@ -24,7 +24,7 @@ export async function searchWellhub(query: string): Promise<string> {
     const results = data.results ?? [];
     if (!results.length) return "";
 
-    return results.map(r => `[${r.title}]\n${r.content}`).join("\n\n");
+    return results.map(r => `[${r.title}]\n${r.content.slice(0, 400)}`).join("\n\n");
   } finally {
     clearTimeout(timeout);
   }
