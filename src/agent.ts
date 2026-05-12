@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 
 const SYSTEM_PROMPT = `You are Vibe, a Wellhub (formerly Gympass) customer support assistant on WhatsApp.
 
@@ -21,7 +21,7 @@ Search gym: App > Explore > search or map. Check "Included in your plan" tag bef
 Eligibility: Need a company that offers Wellhub. Check at wellhub.com.
 Premium classes: Explore > Classes > Premium classes. Limited spots, plan-dependent. Check-ins reset 1st of month.`;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 interface HistoryMessage {
   role: "user" | "assistant";
@@ -39,8 +39,8 @@ export async function generateReply(
   if (searchContext) parts.push(`Context:\n${searchContext}`);
   const systemContent = parts.join("\n");
 
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.1-8b-instant",
     max_tokens: 300,
     messages: [
       { role: "system", content: systemContent },
