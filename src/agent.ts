@@ -16,11 +16,20 @@ Rules:
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY?.trim() });
 
-export async function generateReply(userMessage: string): Promise<string> {
+interface HistoryMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export async function generateReply(
+  userMessage: string,
+  history: HistoryMessage[] = []
+): Promise<string> {
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
+      ...history,
       { role: "user", content: userMessage },
     ],
   });

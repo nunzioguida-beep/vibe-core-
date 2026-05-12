@@ -3,6 +3,11 @@ import express, { Request, Response } from "express";
 import { generateReply } from "./agent";
 import { transcribeAudio } from "./transcribe";
 
+interface HistoryMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 interface MessageEnvelope {
   messageId: string;
   from: string;
@@ -11,6 +16,7 @@ interface MessageEnvelope {
   text?: string;
   audioData?: string;
   audioMimeType?: string;
+  history?: HistoryMessage[];
 }
 
 interface AgentResponse {
@@ -41,7 +47,7 @@ app.post("/process", async (req: Request, res: Response) => {
       return;
     }
     try {
-      const reply = await generateReply(userMessage);
+      const reply = await generateReply(userMessage, envelope.history);
       res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
     } catch (err) {
       console.error("Groq error after transcription:", err);
@@ -62,7 +68,7 @@ app.post("/process", async (req: Request, res: Response) => {
 
   let reply: string;
   try {
-    reply = await generateReply(userMessage);
+    reply = await generateReply(userMessage, envelope.history);
   } catch (err) {
     console.error("Gemini error:", err);
     res.status(500).json({ error: String(err) });
