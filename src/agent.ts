@@ -24,11 +24,13 @@ interface HistoryMessage {
 export async function generateReply(
   userMessage: string,
   history: HistoryMessage[] = [],
-  userName?: string
+  userName?: string,
+  searchContext?: string
 ): Promise<string> {
-  const systemContent = userName
-    ? `${SYSTEM_PROMPT}\n\nThe user's verified name is: ${userName}.`
-    : SYSTEM_PROMPT;
+  const parts = [SYSTEM_PROMPT];
+  if (userName) parts.push(`The user's verified name is: ${userName}.`);
+  if (searchContext) parts.push(`Relevant information from Wellhub sources:\n${searchContext}`);
+  const systemContent = parts.join("\n\n");
 
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",

@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import { generateReply } from "./agent";
 import { transcribeAudio } from "./transcribe";
+import { searchWellhub } from "./search";
 
 interface HistoryMessage {
   role: "user" | "assistant";
@@ -47,8 +48,9 @@ app.post("/process", async (req: Request, res: Response) => {
       res.json({ reply: "Non sono riuscito a capire il messaggio vocale. Puoi scriverlo?", messageId: envelope.messageId } satisfies AgentResponse);
       return;
     }
+    const context = await searchWellhub(userMessage).catch(() => "");
     try {
-      const reply = await generateReply(userMessage, envelope.history, envelope.userName);
+      const reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
       res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
     } catch (err) {
       console.error("Groq error after transcription:", err);
@@ -67,9 +69,10 @@ app.post("/process", async (req: Request, res: Response) => {
     return;
   }
 
+  const context = await searchWellhub(userMessage).catch(() => "");
   let reply: string;
   try {
-    reply = await generateReply(userMessage, envelope.history, envelope.userName);
+    reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
   } catch (err) {
     console.error("Gemini error:", err);
     res.status(500).json({ error: String(err) });
@@ -79,7 +82,7 @@ app.post("/process", async (req: Request, res: Response) => {
   res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
 });
 
-app.get("/health", (_req, res) => res.json({ status: "ok", version: "memory-v2" }));
+app.get("/health", (_req, res) => res.json({ status: "ok", version: "tavily-v1" }));
 
 app.listen(PORT, () => {
   console.log(`vibe-core listening on port ${PORT}`);
