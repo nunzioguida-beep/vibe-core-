@@ -2,7 +2,7 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import { generateReply } from "./agent";
 import { transcribeAudio } from "./transcribe";
-import { searchWellhub } from "./search";
+// import { searchWellhub } from "./search"; // disabled: using static FAQ instead
 
 interface HistoryMessage {
   role: "user" | "assistant";
@@ -48,7 +48,7 @@ app.post("/process", async (req: Request, res: Response) => {
       res.json({ reply: "Non sono riuscito a capire il messaggio vocale. Puoi scriverlo?", messageId: envelope.messageId } satisfies AgentResponse);
       return;
     }
-    const context = await searchWellhub(userMessage).catch(() => "");
+    const context = "";
     try {
       const reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
       res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
@@ -69,7 +69,7 @@ app.post("/process", async (req: Request, res: Response) => {
     return;
   }
 
-  const context = await searchWellhub(userMessage).catch(() => "");
+  const context = "";
   let reply: string;
   try {
     reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
@@ -82,7 +82,7 @@ app.post("/process", async (req: Request, res: Response) => {
   res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
 });
 
-app.get("/health", (_req, res) => res.json({ status: "ok", version: "tavily-v3" }));
+app.get("/health", (_req, res) => res.json({ status: "ok", version: "static-faq-v1" }));
 
 app.listen(PORT, () => {
   console.log(`vibe-core listening on port ${PORT}`);
