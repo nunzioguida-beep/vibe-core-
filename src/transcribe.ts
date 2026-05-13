@@ -1,9 +1,9 @@
-import Groq from "groq-sdk";
+import OpenAI from "openai";
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const openai = new OpenAI({ apiKey: (process.env.OPENAI_API_KEY ?? "").replace(/\s+/g, "") });
 
 export async function transcribeAudio(audioBase64: string, mimeType: string): Promise<string> {
   const buffer = Buffer.from(audioBase64, "base64");
@@ -12,9 +12,9 @@ export async function transcribeAudio(audioBase64: string, mimeType: string): Pr
 
   fs.writeFileSync(tmpFile, buffer);
   try {
-    const transcription = await groq.audio.transcriptions.create({
+    const transcription = await openai.audio.transcriptions.create({
       file: fs.createReadStream(tmpFile),
-      model: "whisper-large-v3-turbo",
+      model: "whisper-1",
     });
     return transcription.text;
   } finally {
