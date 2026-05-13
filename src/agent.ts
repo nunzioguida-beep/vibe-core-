@@ -21,7 +21,7 @@ Search gym: App > Explore > search or map. Check "Included in your plan" tag bef
 Eligibility: Need a company that offers Wellhub. Check at wellhub.com.
 Premium classes: Explore > Classes > Premium classes. Limited spots, plan-dependent. Check-ins reset 1st of month.`;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: (process.env.OPENAI_API_KEY ?? "").replace(/\s+/g, "") });
 
 interface HistoryMessage {
   role: "user" | "assistant";
