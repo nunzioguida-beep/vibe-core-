@@ -82,7 +82,7 @@ app.post("/process", async (req: Request, res: Response) => {
   res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
 });
 
-app.get("/health", (_req, res) => res.json({ status: "ok", version: "groq-v2" }));
+app.get("/health", (_req, res) => res.json({ status: "ok", version: "openai-v2" }));
 
 app.listen(PORT, () => {
   console.log(`vibe-core listening on port ${PORT}`);
