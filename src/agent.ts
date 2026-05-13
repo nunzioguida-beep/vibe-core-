@@ -28,13 +28,23 @@ interface HistoryMessage {
   content: string;
 }
 
+function detectLanguage(text: string): string {
+  const lower = text.toLowerCase();
+  if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|como|qué|por|para|puedo|tengo|quiero|es|un|una)\b/.test(lower)) return "Spanish";
+  if (/[àèìòùé]/.test(lower) || /\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra)\b/.test(lower)) return "Italian";
+  if (/[ãç]/.test(lower) || /\b(obrigado|você|sim|não|ola|ajuda|preciso|quero)\b/.test(lower)) return "Portuguese";
+  return "English";
+}
+
 export async function generateReply(
   userMessage: string,
   history: HistoryMessage[] = [],
   userName?: string,
   searchContext?: string
 ): Promise<string> {
+  const lang = detectLanguage(userMessage);
   const parts = [SYSTEM_PROMPT];
+  parts.push(`LANGUAGE OVERRIDE: The user's current message is in ${lang}. You MUST reply ONLY in ${lang}, regardless of the language of previous messages.`);
   if (userName) parts.push(`User's name: ${userName}.`);
   if (searchContext) parts.push(`Context:\n${searchContext}`);
   const systemContent = parts.join("\n");
