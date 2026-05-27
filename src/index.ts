@@ -53,7 +53,7 @@ app.post("/process", async (req: Request, res: Response) => {
       const reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
       res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
     } catch (err) {
-      console.error("Groq error after transcription:", err);
+      console.error("OpenAI error after transcription:", err);
       res.status(500).json({ error: String(err) });
     }
     return;
@@ -74,7 +74,7 @@ app.post("/process", async (req: Request, res: Response) => {
   try {
     reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
   } catch (err) {
-    console.error("Gemini error:", err);
+    console.error("OpenAI error:", err);
     res.status(500).json({ error: String(err) });
     return;
   }
