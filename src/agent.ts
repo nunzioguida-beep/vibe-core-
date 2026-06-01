@@ -65,9 +65,13 @@ Early annual cancellation, cancellation due to death of account holder, or refun
 
 PAYMENT & BILLING:
 Payment methods: Monthly prepaid on activation date (date cannot be changed). Credit/debit card, Apple Pay. Payroll and HSA/FSA for primary account holder only.
-Payment failed (order suspended): Update method in Profile > Settings > Payment. Account suspended immediately — multiple automatic retries over up to 30 days. If payment resolved: plan reactivates, billing date updated to successful payment date. If unresolved by next billing date: plan canceled. While suspended: cannot check in, book, upgrade/downgrade, or pause. CAN still update payment method, cancel upcoming bookings, or cancel subscription.
-Receipts: Profile > Settings > Account > Payment history > Download receipt.
+Payment failed (order suspended): Account suspended immediately. System retries 8 times over 27 days (Day 0, +24h, +48h, +72h, +8d, +13d, +20d, +27d). Pay Now: pay immediately without waiting — Profile > gear > Account > Past due > select failed payment > add/select payment method. If resolved: plan reactivates, billing date changes to successful payment date. If unresolved after 30 days: plan canceled. While suspended: cannot check in, book, upgrade/downgrade, or pause. CAN update payment method, cancel upcoming bookings, cancel subscription.
+Receipts: Profile > gear > Account > Payment history > select year/month/subscriber > Download icon. FM receipts show "Managed by [AH name]". Only AH can access payment info.
+Activity & Billing Statement (BR & US only): Profile > gear > Account > Activity and Billing Statement > select period > confirm. PDF sent by email within 24h, download link valid 7 days. Contains billing history + check-in history. Not available for FM, FES, or NES.
 Currency: Billed in local currency based on company's location.
+Billing date = plan activation date (cannot be changed). Check in app: Profile > gear > Account > Payment > renewal date.
+Change payment method: Profile > gear > Account > Payment Method > Add payment method > select account to bill. Cannot delete a card if active plans are linked — must add a new method first. Apple Pay: Apple devices only (iPhone, iPad, Mac). SEPA: EU only.
+Bank statement descriptor (since Jan 9, 2026): recurring charges show "Wellhub [plan owner's name]" (e.g., "Wellhub BR Maria"). Helps identify FM charges. Does NOT apply to one-time purchases, upgrades, payroll, or HSA/FSA.
 Unified family billing (since Dec 12, 2025): All new family member plans are billed to the primary account holder's payment method. Each plan is still charged on its own individual billing date — it is NOT one big combined charge. Payroll/HSA/FSA users must add a credit card or Apple Pay as backup for family member plans.
 "Why was my card charged for my family member?" → This is the unified billing policy. It's not a duplicate charge — each line is a separate active subscription. Check card statement to see which charge belongs to which family member.
 Refund for unified billing reason: not granted — using one card for family plans does not qualify for a refund.
@@ -75,10 +79,11 @@ Users can change the shared payment method anytime in Profile > Settings > Payme
 For specific charge breakdowns or billing investigation → handover.
 
 REFUNDS:
-Refunds are NOT granted for: automatic monthly renewals, charge after free trial ends, plan upgrade regret, family member remaining active after primary cancellation, health/medical reasons (offer pause or downgrade instead), partner uptier/removal, user not completing cancellation flow.
-Full refund — retraction period (no check-in required): BR/US = 7 days from first activation (only if no free trial); EU = 14 days; Latin America = 10 days. Applies only to initial plan purchase, not renewals or upgrades.
-Refund allowed: duplicate charges, pending FM sign-up (charged but never completed).
-All refund requests → handover. Bot never processes refunds.
+Refunds are NOT granted for: automatic monthly renewals, charge after free trial ends, plan upgrade regret (even within 7 days — upgrade is a modification, not a new purchase), family member not canceled after primary cancellation, health/medical reasons (offer pause or downgrade instead), partner uptier/removal, user not completing cancellation flow.
+Full refund — retraction period (no check-in): BR/US = 7 days from first activation (only if no free trial); EU = 14 days; Latin America = 10 days. Applies to initial plan activation AND to existing monthly users switching to annual for the first time. Does NOT apply to renewals or upgrades within same commitment.
+Refund allowed: duplicate charges, pending FM sign-up (charged but never completed), former member not aware their account was still active (if no check-in during period).
+Refund timeline: card/Apple Pay typically within 10 business days (varies by bank/card issuer, max 60 business days). Payroll refund up to 30 days.
+All refund requests → handover. Bot never processes refunds. FM cannot request refunds — only account holder can.
 
 FAMILY:
 Family plan: Up to 3 members (parents, children, spouse, stepparents, stepchildren — all eligible). Profile > Settings > Family Members. Separate subscription for each.
