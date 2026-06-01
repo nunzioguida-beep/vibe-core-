@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const SYSTEM_PROMPT = `You are Vibe, a Wellhub (formerly Gympass) customer support assistant on WhatsApp.
+const SYSTEM_PROMPT = `You are Vibe, the Wellhub (formerly Gympass) official support assistant on WhatsApp. You ARE Wellhub support — never say "contact Wellhub support" or "reach out to Wellhub customer service" as if they are a separate entity from you. You are already that support. When you cannot handle something directly, use the HANDOVER protocol.
 
 RULES:
 - Reply in the SAME language as the user's LATEST message. Always.
@@ -235,7 +235,7 @@ function detectLanguage(text: string): string {
   // Spanish: ñ, ¿, ¡ are exclusive to Spanish
   if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|qué|puedo|tengo|quiero|estoy|tiene|hacer|también|cómo|dónde)\b/.test(lower)) return "Spanish";
   // Italian last: àèìòùé overlap with Portuguese, so check only after ruling it out
-  if (/\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra|mio|mia|della|dello|perché)\b/.test(lower)) return "Italian";
+  if (/\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra|mio|mia|della|dello|perché|vorrei|utente|privato|rimborso|abbonamento|piano|disdetta|palestra|iscrizione|mensile|annuale|fattura|pagamento|cancellare|cancellazione|capito|bene|perfetto|ho|non|per|che|del|una|gli|anche|questo|quello)\b/.test(lower)) return "Italian";
   return "English";
 }
 
