@@ -106,7 +106,12 @@ Cancel a booked class: Profile > Schedule > select class > Cancel Booking. Must 
 Late cancellations and no-shows count as a used check-in for the day.
 Cannot book if already checked in that day. Max 1 standard class booked per day.
 Premium class booking: Does NOT consume daily standard check-in. 1 standard + 1 premium allowed same day.
-If monthly late cancellation/no-show limit reached: all existing bookings canceled, no new bookings until next month (walk-in check-ins still allowed).
+LC/NS monthly allowance: 1 per month for CA, US, MX, CL, AR, ES, PT, IT, DE, UK, IE. BR: 2 per month. Resets on 1st of each month.
+Check-in window: 30 min before class to 30 min after it ends. "Not validated" = user checked in but partner didn't confirm → NOT counted as LC/NS.
+When limit reached: cannot book, existing bookings canceled. Walk-in check-ins and partner apps still available.
+Missed class fee: pay in-app (card or Apple Pay only — not payroll/SEPA) to restore booking immediately. Must pay up to 2h before next booked class cancellation window, or all bookings for the month are canceled. For FM: only Account Holder can pay via Settings > Family Members.
+Pausing plan does NOT auto-cancel booked classes → user must cancel manually to avoid NS.
+LC/NS reversal (contact support with evidence): eligible if Wellhub app error during check-in or cancellation, checked in on partner's app instead, partner canceled outside Wellhub system, instructor didn't show up. One-time yearly exception: 1/year (US & MX: 2/year) — no evidence needed. NOT eligible: personal reasons (illness, traffic, meeting), or after yearly exceptions exhausted.
 Booking error messages: "Class is full"/"No spots available" = capacity reached. "Visit the partner first" = first-time in-person registration required at that gym. "Booking window closed" = book earlier next time. "You already booked this class" = already reserved for that day. "Class no longer available" = partner canceled it.
 Order suspended (payment failed): user cannot check in, book, or use partner apps until payment resolved.
 Technical booking issues / integration errors → handover.
@@ -129,6 +134,19 @@ ACCOUNT:
 Delete account: Profile > Settings > Account > Delete account. Permanent — removes all check-in history.
 Multi-device: One active session at a time. New login logs out previous device.
 Change personal data (email, name) → handover.
+Change Wellhub provider (new employer): Profile > Settings > Account > Wellhub Provider → select new company and enter eligibility key from HR. NOT available if: plan is paused, annual subscription active, free trial active, cancellation/downgrade scheduled, payroll payment method (must update to card first), or active/pending family members (must cancel them first then re-add after). If moving to a company in a different country → must sign up from scratch. Annual subscription + provider change → must contact support (exceptional cancellation required in Darwin). Plan prices and benefits may change with new company.
+
+FORMER EMPLOYEE SUBSCRIBER (FES):
+FES = user who left their company but keeps their active Wellhub plan. NOT the same as company churn (company cancels contract → plans canceled at next billing, no FES).
+Requirements: must have an active or paused plan when leaving the company. Payroll users must switch to a digital payment method (card, Apple Pay, SEPA) before next billing date — or plan is canceled. Can repurchase within 30 days after cancellation.
+FES CAN: keep existing family members active, upgrade/downgrade among paid tiers, pause/unpause, cancel anytime.
+FES CANNOT: add new family members, pay via payroll, reactivate plan after cancellation (unless gaining eligibility through a new company).
+Annual FES: keeps current price until end of 12-month commitment, then renews at FES price table. CANNOT downgrade to Digital Plan. Exception: if already had Digital Plan when leaving, can keep it.
+Monthly FES: CAN downgrade to Digital Plan (maintains FES eligibility).
+Once FES plan is canceled: cannot reactivate unless a new company offers Wellhub as a benefit.
+Marked as FES but still employed: Wellhub cannot fix it manually — user must contact HR to update the eligibility list.
+Switch to new company (regain full benefits): Profile > Settings > Account > Wellhub Provider → link new company. Regains subsidies and ability to add new FMs.
+FES refund requests → handover. Refund only valid if no check-in or partner app usage since eligibility change.
 
 DISCOVERY:
 Search gym/partner: App > Explore > search or map. Check "Included in your plan" tag before visiting.
