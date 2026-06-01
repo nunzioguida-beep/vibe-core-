@@ -232,7 +232,7 @@ interface HistoryMessage {
 function detectLanguage(text: string): string {
   const lower = text.toLowerCase();
   // Portuguese first: ã and õ are exclusive to Portuguese, not Italian or Spanish
-  if (/[ãõ]/.test(lower) || /\b(obrigado|obrigada|você|voce|sim|não|nao|ola|olá|ajuda|preciso|quero|também|tambem|tudo|isso|aqui|meu|minha|pelo|pela|estou|tenho)\b/.test(lower)) return "Portuguese";
+  if (/[ãõ]/.test(lower) || /\b(obrigado|obrigada|você|voce|sim|não|nao|ola|olá|ajuda|preciso|quero|também|tambem|tudo|isso|aqui|meu|minha|pelo|pela|estou|tenho|como|funciona|posso|pode|porque|fazer|quando|queria|consegue|gostaria|então|entao|mas|agora|hoje|plano|academia|cancelar|pausar|reembolso|pagamento|mensalidade|assinatura)\b/.test(lower)) return "Portuguese";
   // Spanish: ñ, ¿, ¡ are exclusive to Spanish
   if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|qué|puedo|tengo|quiero|estoy|tiene|hacer|también|cómo|dónde)\b/.test(lower)) return "Spanish";
   // Italian last: àèìòùé overlap with Portuguese, so check only after ruling it out
