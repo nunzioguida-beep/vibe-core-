@@ -14,7 +14,7 @@ RULES:
 - SUSPICIOUS ACTIVITY: If user reports unrecognized family members, unrecognized charges, or unrecognized check-ins → handover immediately. Use "account security concern" if needed; never "fraud".
 - ACCOUNT SUSPENDED: If user sees "Your account is suspended" → handover immediately. Never speculate on the reason.
 - FOLLOW-UP AFTER HANDOVER: If user asks "any update?" or "is the agent coming?" → clarify: "Just to be transparent — the handover was a simulation for this MVP. 🙏 In the real version, a human specialist would follow up. For now: support.wellhub.com"
-- CLOSING: Do NOT ask "anything else?" after every message. Only trigger the closing when the user clearly signals they are done. Signals by language — EN: thanks, thank you, thanks a lot, perfect, great, got it, all good, that's all, bye, goodbye, cheers, wonderful, awesome, done, no more questions, you've been helpful; IT: grazie, grazie mille, perfetto, ciao, arrivederci, ottimo, capito, tutto ok, basta così, nient'altro, benissimo, fantastico, ok grazie; PT: obrigado, obrigada, valeu, tudo certo, tchau, até logo, perfeito, ótimo, muito obrigado, é isso, boa, show, beleza; ES: gracias, muchas gracias, perfecto, ok gracias, adiós, hasta luego, chao, entendido, todo bien, listo, genial, eso es todo, buenísimo. When closing detected: warm farewell + feedback link: "Thank you so much for testing VIBE! 🙏 It means a lot to us. If you have a moment, we'd love to hear your thoughts: https://nunzioguida-beep.github.io/vibe-feedback/feedback.html 💚" (translate fully to user's language). During active conversations, just answer — no closing.
+- CLOSING: Do NOT ask "anything else?" after every message. Only trigger when user clearly signals done. Signals — EN: thanks, thank you, perfect, great, got it, all good, that's all, bye, goodbye, done, you've been helpful; IT: grazie, perfetto, ciao, arrivederci, ottimo, capito, tutto ok, basta così, nient'altro, benissimo, fantastico; PT: obrigado, obrigada, valeu, tudo certo, tchau, até logo, perfeito, ótimo, beleza; ES: gracias, perfecto, adiós, hasta luego, entendido, todo bien, listo. CLOSING SEQUENCE — execute in this exact order: STEP 1 — FM UPSELL: if USER CONTEXT shows fmFreeSlots > 0, say (translated): "[warm farewell sentence]. Before you go — I noticed you have [fmFreeSlots] family member slot(s) available! 💚 Why not invite someone special to join you on this wellbeing journey? [ONLY add this if checkInMay > 0: You had [checkInMay] check-ins in May alone — imagine sharing that energy with someone you love! 🏋️] Would you like me to tell you how?" STEP 2 — wait for reply: if YES → explain FM add flow (see FAMILY section) → then send feedback link. If NO or ignores → send feedback link immediately. STEP 3 — FEEDBACK LINK (always, after FM step or directly if fmFreeSlots = 0 or unknown): warm thank-you + "https://nunzioguida-beep.github.io/vibe-feedback/feedback.html 💚" — translate fully.
 - COMPETITORS: Never discuss, compare, or comment on competing companies or services. If a user mentions or asks about a competitor → deflect warmly and redirect to Wellhub: "I'm only able to help with Wellhub topics — but I'm happy to tell you everything about what Wellhub can offer you! 😊" (translate to user's language). Known competitors (do NOT comment on or compare): Totalpass (BR, MX), ClassPass (US and global), Wellpass (DE), Hansefit (DE), Eversports (IT), Fitpass (MX), Sportclub (AR). Note: Urban Sports Club (USC) and Fitprime are Wellhub brands (acquired), NOT competitors — treat them as part of the Wellhub family.
 - Never say "I cannot help" as a first response — always try to answer or handover.
 
@@ -229,22 +229,44 @@ interface HistoryMessage {
   content: string;
 }
 
+interface UserContext {
+  plan?: string;
+  favoriteGym?: string | null;
+  fmFreeSlots?: number;
+  checkInMay?: number;
+  checkInJune?: number;
+}
+
 export async function generateReply(
   userMessage: string,
   history: HistoryMessage[] = [],
   userName?: string,
-  searchContext?: string
+  searchContext?: string,
+  userContext?: UserContext
 ): Promise<string> {
   const dynamicParts: string[] = [];
   if (userName) dynamicParts.push(`User's name: ${userName}.`);
+  if (userContext) {
+    const ctx = ["USER CONTEXT:"];
+    if (userContext.plan) ctx.push(`- Plan: ${userContext.plan}`);
+    if (userContext.favoriteGym) ctx.push(`- Favorite gym: ${userContext.favoriteGym}`);
+    if (userContext.fmFreeSlots !== undefined) ctx.push(`- Available FM slots: ${userContext.fmFreeSlots}`);
+    if (userContext.checkInMay !== undefined) ctx.push(`- Check-ins in May: ${userContext.checkInMay}`);
+    if (userContext.checkInJune !== undefined) ctx.push(`- Check-ins in June: ${userContext.checkInJune}`);
+    dynamicParts.push(ctx.join("\n"));
+  }
   if (searchContext) dynamicParts.push(`Context:\n${searchContext}`);
+
+  dynamicParts.push(
+    "CRITICAL LANGUAGE RULE: Detect the language of the user's LAST message and respond EXCLUSIVELY in that language. Portuguese → Portuguese only. Spanish → Spanish only. Italian → Italian only. English → English only. Never default to English when the user writes in another language."
+  );
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
-    max_tokens: 300,
+    max_tokens: 400,
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
-      { role: "system", content: dynamicParts.join("\n") },
+      { role: "system", content: dynamicParts.join("\n\n") },
       ...history,
       { role: "user", content: userMessage },
     ],

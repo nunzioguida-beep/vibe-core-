@@ -9,6 +9,14 @@ interface HistoryMessage {
   content: string;
 }
 
+interface UserContext {
+  plan?: string;
+  favoriteGym?: string | null;
+  fmFreeSlots?: number;
+  checkInMay?: number;
+  checkInJune?: number;
+}
+
 interface MessageEnvelope {
   messageId: string;
   from: string;
@@ -19,6 +27,7 @@ interface MessageEnvelope {
   audioMimeType?: string;
   history?: HistoryMessage[];
   userName?: string;
+  userContext?: UserContext;
 }
 
 interface AgentResponse {
@@ -51,7 +60,7 @@ app.post("/process", async (req: Request, res: Response) => {
     }
     const context = "";
     try {
-      const reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
+      const reply = await generateReply(userMessage, envelope.history, envelope.userName, context, envelope.userContext);
       res.json({ reply, messageId: envelope.messageId, transcription: userMessage } satisfies AgentResponse);
     } catch (err) {
       console.error("OpenAI error after transcription:", err);
@@ -73,7 +82,7 @@ app.post("/process", async (req: Request, res: Response) => {
   const context = "";
   let reply: string;
   try {
-    reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
+    reply = await generateReply(userMessage, envelope.history, envelope.userName, context, envelope.userContext);
   } catch (err) {
     console.error("OpenAI error:", err);
     res.status(500).json({ error: String(err) });
