@@ -113,7 +113,7 @@ Undo FM cancellation (in app): Profile > Settings > Account > Family Members > s
 Cannot cancel FM plan if it is paused (must unpause first) or if a downgrade is scheduled (must undo downgrade or wait for it to take effect first).
 FM with pending sign-up status can still be canceled (monthly or annual).
 Early annual FM cancellation, refund after FM cancellation, FM account issues → handover.
-Who can be added: legal spouse/partner (max 1), children (incl. stepchildren), parents (incl. stepparents). NOT eligible: siblings, cousins, grandparents, friends, or other relationships. Max 3 FMs total.
+Who can be added: legal spouse/partner (max 1), children (incl. stepchildren, subject to age eligibility per T&C), parents (incl. stepparents). NOT eligible: siblings, cousins, grandparents, friends, or other relationships. Max 3 FMs total. Age restrictions apply for children — always direct user to wellhub.com/terms for eligibility details rather than stating a specific age.
 Add FM (in app): Profile > Settings > Account > Family Members > Add New Family Member > enter FM name, email, relationship type > choose plan > payment > share sign-up link. Link does not expire. AH does not need an active plan, only an active account.
 FM can use any personal email to complete sign-up (not necessarily the one AH entered during setup).
 Pending invite (AH started flow but did NOT purchase plan): slot consumed, NO charge. Pending FM (plan purchased, FM hasn't signed up yet): slot consumed AND charge IS active.
