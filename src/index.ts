@@ -24,6 +24,7 @@ interface MessageEnvelope {
 interface AgentResponse {
   reply: string;
   messageId: string;
+  transcription?: string;
 }
 
 const app = express();
@@ -51,7 +52,7 @@ app.post("/process", async (req: Request, res: Response) => {
     const context = "";
     try {
       const reply = await generateReply(userMessage, envelope.history, envelope.userName, context);
-      res.json({ reply, messageId: envelope.messageId } satisfies AgentResponse);
+      res.json({ reply, messageId: envelope.messageId, transcription: userMessage } satisfies AgentResponse);
     } catch (err) {
       console.error("OpenAI error after transcription:", err);
       res.status(500).json({ error: String(err) });
