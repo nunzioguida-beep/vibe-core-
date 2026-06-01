@@ -224,9 +224,12 @@ interface HistoryMessage {
 
 function detectLanguage(text: string): string {
   const lower = text.toLowerCase();
-  if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|como|qué|por|para|puedo|tengo|quiero|es|un|una)\b/.test(lower)) return "Spanish";
-  if (/[àèìòùé]/.test(lower) || /\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra)\b/.test(lower)) return "Italian";
-  if (/[ãç]/.test(lower) || /\b(obrigado|você|sim|não|ola|ajuda|preciso|quero)\b/.test(lower)) return "Portuguese";
+  // Portuguese first: ã and õ are exclusive to Portuguese, not Italian or Spanish
+  if (/[ãõ]/.test(lower) || /\b(obrigado|obrigada|você|voce|sim|não|nao|ola|olá|ajuda|preciso|quero|também|tambem|tudo|isso|aqui|meu|minha|pelo|pela|estou|tenho)\b/.test(lower)) return "Portuguese";
+  // Spanish: ñ, ¿, ¡ are exclusive to Spanish
+  if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|qué|puedo|tengo|quiero|estoy|tiene|hacer|también|cómo|dónde)\b/.test(lower)) return "Spanish";
+  // Italian last: àèìòùé overlap with Portuguese, so check only after ruling it out
+  if (/\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra|mio|mia|della|dello|perché)\b/.test(lower)) return "Italian";
   return "English";
 }
 
