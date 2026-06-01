@@ -24,7 +24,8 @@ App crash / login error: (1) force-close and reopen; (2) update to latest versio
 PLANS:
 Plan tiers: Basic, Smart, Pro, Max (US naming). Higher tiers unlock more gyms and premium features.
 Find partners: App > Explore > search by name or activity. "Included" = in your plan. "Partially Included" = Off-Peak hours only. "Not Included" = upgrade required.
-Off-Peak access: Lower-tier plans access some partners during off-peak windows. App shows them as "Partially Included". Tap clock icon on partner page for exact hours.
+Off-Peak access: Lower-tier plans access some partners during off-peak windows. App shows them as "Partially Included". Tap clock icon on partner page for exact hours. Check-in allowed up to 5 minutes before the off-peak window starts.
+Free trial: 7 days for account holders only (not family members). Available only during the first 12 months of a company's Wellhub contract. Start: App > select plan > "Try X days for free" > review dates > enter payment. Cancel during trial: Profile > Settings > Account > Manage subscription > Cancel → IMMEDIATE (not end of cycle). If first plan is Digital Plan (free), free trial is lost even if upgrading. Refund for auto-charge after trial ends: not granted.
 Compare plans: Profile > Settings > Account > Subscription > Manage subscription > View Plans.
 Premium classes: Available in US, UK, MX, ES, DE. You can do 1 standard check-in + 1 premium class same day (exception to daily limit). Monthly limit resets 1st of month.
 Premium classes in Germany (DE): Weekly cap for USC/new partners only. Gold: 1x/week, Gold+: 2x/week, Platinum: 3x/week, Diamond: 4x/week.
@@ -46,14 +47,17 @@ Upgrade during annual: Immediate, new 12-month period starts from upgrade date.
 Downgrade during annual: Effective next billing date, new 12-month period starts.
 
 SUBSCRIPTION:
-Cancel plan: Profile > Settings > Account > Manage subscription > Cancel. 24h before renewal. Canceling yours does NOT cancel family members' plans.
+Cancel plan (in app): Profile > Settings > Account > Manage subscription > Cancel plan. Monthly: effective at end of billing cycle. Annual: effective at end of 12-month commitment period. Free trial: effective IMMEDIATELY.
+Cannot cancel if plan is paused (must unpause first) or if a downgrade is scheduled (undo it or wait for it first).
+Undo cancellation (in app): Profile > Settings > Account > Manage subscription > Stop cancellation. Available while status is "Scheduled for Cancellation" — up to last day of billing cycle (monthly) or last day of 12-month period (annual). Once plan shows "Cancelled" → must reactivate.
+If company cancels Wellhub contract: all plans (including FMs, monthly and annual) scheduled for cancellation at next billing date. No former-employee status. Access until end of billing cycle. To return: must join a new company with Wellhub.
 Pause plan: Once per 6 months, 15–30 days. Profile > Settings > Account > Manage subscription > Pause. 24h before renewal.
-Reactivate: Rejoin anytime at wellhub.com or in app (subject to eligibility).
-Refunds: Generally not issued for partial months → handover for exceptions.
+Reactivate: Rejoin at wellhub.com or in app (subject to eligibility).
+Early annual cancellation, cancellation due to death of account holder, or refund requests → handover.
 
 PAYMENT & BILLING:
 Payment methods: Monthly prepaid on activation date (date cannot be changed). Credit/debit card, Apple Pay. Payroll and HSA/FSA for primary account holder only.
-Payment failed: Update method in Profile > Settings > Payment. After 2 failed attempts, subscription is paused.
+Payment failed (order suspended): Update method in Profile > Settings > Payment. Account suspended immediately — multiple automatic retries over up to 30 days. If payment resolved: plan reactivates, billing date updated to successful payment date. If unresolved by next billing date: plan canceled. While suspended: cannot check in, book, upgrade/downgrade, or pause. CAN still update payment method, cancel upcoming bookings, or cancel subscription.
 Receipts: Profile > Settings > Account > Payment history > Download receipt.
 Currency: Billed in local currency based on company's location.
 Unified family billing (since Dec 12, 2025): All new family member plans are billed to the primary account holder's payment method. Each plan is still charged on its own individual billing date — it is NOT one big combined charge. Payroll/HSA/FSA users must add a credit card or Apple Pay as backup for family member plans.
@@ -62,12 +66,22 @@ Refund for unified billing reason: not granted — using one card for family pla
 Users can change the shared payment method anytime in Profile > Settings > Payment.
 For specific charge breakdowns or billing investigation → handover.
 
+REFUNDS:
+Refunds are NOT granted for: automatic monthly renewals, charge after free trial ends, plan upgrade regret, family member remaining active after primary cancellation, health/medical reasons (offer pause or downgrade instead), partner uptier/removal, user not completing cancellation flow.
+Full refund — retraction period (no check-in required): BR/US = 7 days from first activation (only if no free trial); EU = 14 days; Latin America = 10 days. Applies only to initial plan purchase, not renewals or upgrades.
+Refund allowed: duplicate charges, pending FM sign-up (charged but never completed).
+All refund requests → handover. Bot never processes refunds.
+
 FAMILY:
-Family plan: Up to 3 members (parents, children, spouse). Profile > Settings > Family Members. Separate subscription for each.
+Family plan: Up to 3 members (parents, children, spouse, stepparents, stepchildren — all eligible). Profile > Settings > Family Members. Separate subscription for each.
 Subsidies (Wellhub+) apply only to the primary account holder, NOT family members.
-Canceling your plan does NOT cancel family members' plans.
-Only account holder can manage cancellations, pauses, plan changes, and payment for family members.
-Family member cannot request payment or billing information — only account holder can.
+Canceling your own plan does NOT cancel family members' plans. Exception: if Account Holder becomes ineligible (loses company eligibility), all FM plans are automatically terminated.
+Only account holder can manage cancellations, pauses, plan changes, and payment for family members. FM cannot request these on their own.
+Cancel FM plan (in app): Profile > Settings > Account > Family Members > select member > Manage subscription > Cancel plan. Monthly: effective at end of FM billing cycle. Annual: effective at end of 12-month commitment period.
+Undo FM cancellation (in app): Profile > Settings > Account > Family Members > select member > Manage subscription > Stop cancellation. Available while status shows "Cancellation scheduled". Once status is "Cancelled" → plan already ended, must reactivate.
+Cannot cancel FM plan if it is paused (must unpause first) or if a downgrade is scheduled (must undo downgrade or wait for it to take effect first).
+FM with pending sign-up status can still be canceled (monthly or annual).
+Early annual FM cancellation, refund after FM cancellation, FM account issues → handover.
 
 CHECK-INS & BOOKINGS:
 Standard check-in: 1 per day (not cumulative, does not roll over). App > Check-in tab > choose location.
@@ -81,6 +95,10 @@ Booking error messages: "Class is full"/"No spots available" = capacity reached.
 Order suspended (payment failed): user cannot check in, book, or use partner apps until payment resolved.
 Technical booking issues / integration errors → handover.
 Non-integrated partners: Wellhub doesn't manage their bookings — user must contact the gym directly.
+Cancel a walk-in check-in: App > Check-in tab > Cancel button (must be before the validation timer of ~20-90 min expires). If timer expires: check-in is completed for the day and cannot be undone.
+Check-in count (total all-time): Profile > top of page. Monthly usage: Check-in section > history icon > Check-ins usage.
+Check-in requires GPS + precise location enabled on device. User must be physically at the partner location.
+Identity verification (SMS code or facial scan) may be requested for unusual account activity → handover immediately.
 
 INTERNATIONAL CHECK-IN:
 What it is: Feature allowing check-ins at in-person partners when traveling abroad. Requires company to have the International Check-in SKU activated.
