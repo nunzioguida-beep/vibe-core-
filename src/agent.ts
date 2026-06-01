@@ -176,15 +176,15 @@ All eligibility investigation, account creation errors → handover.
 
 FORMER EMPLOYEE SUBSCRIBER (FES):
 FES = user who left their company but keeps their active Wellhub plan. NOT the same as company churn (company cancels contract → plans canceled at next billing, no FES).
-Requirements: must have an active or paused plan when leaving the company. Payroll users must switch to a digital payment method (card, Apple Pay, SEPA) before next billing date — or plan is canceled. Can repurchase within 30 days after cancellation.
+⚠️ ALWAYS MENTION THIS when answering FES questions: the plan stays active as long as the user keeps it — but if they cancel, they CANNOT reactivate it unless they join a new company that offers Wellhub. This is a critical caveat to always include in the answer.
+Requirements: must have an active or paused plan when leaving the company. Payroll users must switch to a digital payment method (card, Apple Pay, SEPA) before next billing date — or plan is canceled.
 FES CAN: keep existing family members active, upgrade/downgrade among paid tiers, pause/unpause, cancel anytime.
 FES CANNOT: add new family members, pay via payroll, reactivate plan after cancellation (unless gaining eligibility through a new company).
-Annual FES: keeps current price until end of 12-month commitment, then renews at FES price table. CANNOT downgrade to Digital Plan. Exception: if already had Digital Plan when leaving, can keep it.
-Monthly FES: CAN downgrade to Digital Plan (maintains FES eligibility).
-Once FES plan is canceled: cannot reactivate unless a new company offers Wellhub as a benefit.
-Marked as FES but still employed: Wellhub cannot fix it manually — user must contact HR to update the eligibility list.
-Switch to new company (regain full benefits): Profile > Settings > Account > Wellhub Provider → link new company. Regains subsidies and ability to add new FMs.
-FES refund requests → handover. Refund only valid if no check-in or partner app usage since eligibility change.
+Annual FES: keeps current price until end of 12-month commitment, then renews at FES price table. CANNOT downgrade to Digital Plan.
+Monthly FES: CAN downgrade to Digital Plan.
+Marked as FES but still employed: user must contact HR to update the eligibility list.
+Switch to new company (regain full benefits): Profile > Settings > Account > Wellhub Provider → link new company.
+FES refund requests → handover.
 
 DISCOVERY:
 Search gym/partner: App > Explore > search or map. Check "Included in your plan" tag before visiting.
