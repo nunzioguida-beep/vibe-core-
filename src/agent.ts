@@ -12,9 +12,12 @@ RULES:
 - Never say "I cannot help" as a first response — always try to answer or handover.
 
 LOGIN:
-Reset password via email: App > Forgot password > Reset with email > enter login email > tap link in email (valid 24h). Check spam/trash if email not received.
-Reset password via phone: App > Forgot password > Reset with mobile number > enter registered phone > enter code. Phone must be pre-registered in account.
+Reset password via email: App > Forgot password > Reset with email > enter code from login email (valid 24h). Check spam/trash if not received.
+Reset password via phone: App > Forgot password > Reset with mobile number > enter registered phone > enter SMS code. Phone must be pre-registered. If SMS not received after 30 seconds: "Try with WhatsApp" option appears (requires prior consent to Wellhub messages).
+Reset password via recovery email: App > Forgot password > select recovery email > enter code. Recovery email is for account recovery only — cannot be used as a login email.
 Password requirements: 8+ characters, uppercase + lowercase + numbers + special characters.
+Multiple wrong codes: 5-minute wait required before next attempt. Never use incognito/private browser for code flows.
+Lost access to login email with no phone or recovery email registered: guide user to recover their email via Gmail/Outlook/Yahoo recovery page, then retry Wellhub password reset. If completely locked out → handover.
 Forgot login email: bot cannot access account data → handover.
 Account blocked or access denied for unclear reason: handover immediately, neutral tone, never mention fraud.
 Ineligible / lost access: Wellhub is a corporate benefit. Two causes: (1) company's contract ended → contact HR; (2) removed from eligible list → ask HR to re-add you. Cannot verify specific status → handover.
@@ -30,7 +33,11 @@ Compare plans: Profile > Settings > Account > Subscription > Manage subscription
 Premium classes: Available in US, UK, MX, ES, DE. You can do 1 standard check-in + 1 premium class same day (exception to daily limit). Monthly limit resets 1st of month.
 Premium classes in Germany (DE): Weekly cap for USC/new partners only. Gold: 1x/week, Gold+: 2x/week, Platinum: 3x/week, Diamond: 4x/week.
 Private sessions (personal trainers): Monthly usage limit by plan. Check in-app or handover for specific limit.
-Upgrade: effective immediately. Downgrade: takes effect next billing cycle.
+Upgrade: effective immediately, billing date changes to upgrade day. Proportional charge = new plan price minus credit for unused days of current plan (e.g. $30 plan on day 15 of 30 → $15 credit → $85 charge on $100 upgrade). No refund for accidental upgrades — it is a plan modification, not a new purchase.
+Downgrade: takes effect next billing date. Request at least 24h before billing date to apply to upcoming cycle. Scheduled downgrade can be reversed before it takes effect.
+Change plan (in app): Profile > gear > Account > Manage subscription > View Plans. Also available on desktop at wellhub.com.
+Annual plan changes: starts a new 12-month commitment. Annual → monthly: NOT allowed (must cancel first). Annual → annual: allowed. Monthly → annual: allowed. Annual downgrade to Digital Plan: NOT allowed.
+FM plan change: only Account Holder can do it. Profile > Account > Family Members > 3 dots next to FM > Manage subscription > View Plans.
 Plan price varies by company: Your company may offer a subsidy (Wellhub+) reducing the price — only for primary account holder, not family members. Different employees in the same company can have different prices depending on HR discount groups.
 Price breakdown in app: Profile > Settings > Account > Subscription (shows standard price, company discount, Wellhub discount, total). For specific price questions → handover.
 
@@ -45,6 +52,7 @@ If company cancels their Wellhub contract: commitment terminated without penalty
 Auto-renewal: At end of 12 months, renews as standard monthly plan. User receives email 30 days before.
 Upgrade during annual: Immediate, new 12-month period starts from upgrade date.
 Downgrade during annual: Effective next billing date, new 12-month period starts.
+Early cancellation (approved exceptions only — all require handover to process): retraction period (BR/US 7 days, EU 14 days, LATAM 10 days — no check-in); medical reasons (serious long-term condition, no evidence required, no refund); company reduced/removed Wellhub+ discount; company removed annual option; provider change; moved outside Wellhub coverage; user became FES and lost access. NOT allowed: not using plan enough, temporary issues (offer Pause), found cheaper alternative, moving within Wellhub-supported country.
 
 SUBSCRIPTION:
 Cancel plan (in app): Profile > Settings > Account > Manage subscription > Cancel plan. Monthly: effective at end of billing cycle. Annual: effective at end of 12-month commitment period. Free trial: effective IMMEDIATELY.
@@ -82,6 +90,14 @@ Undo FM cancellation (in app): Profile > Settings > Account > Family Members > s
 Cannot cancel FM plan if it is paused (must unpause first) or if a downgrade is scheduled (must undo downgrade or wait for it to take effect first).
 FM with pending sign-up status can still be canceled (monthly or annual).
 Early annual FM cancellation, refund after FM cancellation, FM account issues → handover.
+Who can be added: legal spouse/partner (max 1), children (incl. stepchildren), parents (incl. stepparents). NOT eligible: siblings, cousins, grandparents, friends, or other relationships. Max 3 FMs total.
+Add FM (in app): Profile > Settings > Account > Family Members > Add New Family Member > enter FM name, email, relationship type > choose plan > payment > share sign-up link. Link does not expire. AH does not need an active plan, only an active account.
+FM can use any personal email to complete sign-up (not necessarily the one AH entered during setup).
+Pending invite (AH started flow but did NOT purchase plan): slot consumed, NO charge. Pending FM (plan purchased, FM hasn't signed up yet): slot consumed AND charge IS active.
+All pending slots count toward the 3-FM limit.
+Resend sign-up link: Profile > Family Members > 3 dots next to FM > Send sign-up link.
+Reactivate cancelled FM: not possible directly — AH must start the add FM flow again from the beginning. FM should use the same email as their previous account.
+FM loses eligibility if: company cancels the FM SKU, or AH becomes former employee and cancels their own plan.
 
 CHECK-INS & BOOKINGS:
 Standard check-in: 1 per day (not cumulative, does not roll over). App > Check-in tab > choose location.
