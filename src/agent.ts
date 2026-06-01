@@ -229,27 +229,13 @@ interface HistoryMessage {
   content: string;
 }
 
-function detectLanguage(text: string): string {
-  const lower = text.toLowerCase();
-  // Portuguese first: ã and õ are exclusive to Portuguese, not Italian or Spanish
-  if (/[ãõ]/.test(lower) || /\b(obrigado|obrigada|você|voce|sim|não|nao|ola|olá|ajuda|preciso|quero|também|tambem|tudo|isso|aqui|meu|minha|pelo|pela|estou|tenho|como|funciona|posso|pode|porque|fazer|quando|queria|consegue|gostaria|então|entao|mas|agora|hoje|plano|academia|cancelar|pausar|reembolso|pagamento|mensalidade|assinatura)\b/.test(lower)) return "Portuguese";
-  // Spanish: ñ, ¿, ¡ are exclusive to Spanish
-  if (/[ñ¿¡]/.test(lower) || /\b(hola|gracias|qué|puedo|tengo|quiero|estoy|tiene|hacer|también|cómo|dónde)\b/.test(lower)) return "Spanish";
-  // Italian last: àèìòùé overlap with Portuguese, so check only after ruling it out
-  if (/\b(ciao|sono|grazie|come|cosa|voglio|salve|buongiorno|aiuto|palestra|mio|mia|della|dello|perché|vorrei|utente|privato|rimborso|abbonamento|piano|disdetta|palestra|iscrizione|mensile|annuale|fattura|pagamento|cancellare|cancellazione|capito|bene|perfetto|ho|non|per|che|del|una|gli|anche|questo|quello)\b/.test(lower)) return "Italian";
-  return "English";
-}
-
 export async function generateReply(
   userMessage: string,
   history: HistoryMessage[] = [],
   userName?: string,
   searchContext?: string
 ): Promise<string> {
-  const lang = detectLanguage(userMessage);
-  const dynamicParts = [
-    `LANGUAGE OVERRIDE: The user's current message is in ${lang}. You MUST reply ONLY in ${lang}, regardless of the language of previous messages.`,
-  ];
+  const dynamicParts: string[] = [];
   if (userName) dynamicParts.push(`User's name: ${userName}.`);
   if (searchContext) dynamicParts.push(`Context:\n${searchContext}`);
 
