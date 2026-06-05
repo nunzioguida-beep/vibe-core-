@@ -230,6 +230,36 @@ Corporate plans: Wellhub is an employer benefit. Contact HR if not in your benef
 
 const openai = new OpenAI({ apiKey: (process.env.OPENAI_API_KEY ?? "").replace(/\s+/g, "") });
 
+// Dedicated, deterministic language detector for the user's LATEST message.
+// Isolated single-task call so the small model is reliable — it only has to
+// name the language, not also generate a reply. Runs on every turn, so a tester
+// switching languages mid-conversation is always followed.
+async function detectLanguage(text: string): Promise<string> {
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      max_tokens: 3,
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a language detector. Reply with EXACTLY one word naming the language of the user's message: English, Portuguese, Spanish, or Italian. Look carefully at the actual words — do not confuse Portuguese with Italian or Spanish. Output only the language name, nothing else.",
+        },
+        { role: "user", content: text },
+      ],
+    });
+    const raw = (completion.choices[0].message.content ?? "").trim().toLowerCase();
+    if (raw.includes("portug")) return "Portuguese";
+    if (raw.includes("span") || raw.includes("espa")) return "Spanish";
+    if (raw.includes("ital")) return "Italian";
+    return "English";
+  } catch (err) {
+    console.error("Language detection error, defaulting to English:", err);
+    return "English";
+  }
+}
+
 interface HistoryMessage {
   role: "user" | "assistant";
   content: string;
@@ -263,8 +293,9 @@ export async function generateReply(
   }
   if (searchContext) dynamicParts.push(`Context:\n${searchContext}`);
 
+  const replyLanguage = await detectLanguage(userMessage);
   dynamicParts.push(
-    "CRITICAL LANGUAGE RULE: Detect the language of the user's LAST message and respond EXCLUSIVELY in that language. Portuguese → Portuguese only. Spanish → Spanish only. Italian → Italian only. English → English only. Never default to English when the user writes in another language."
+    `CRITICAL LANGUAGE RULE (NON-NEGOTIABLE): The user's latest message is in ${replyLanguage}. You MUST write your ENTIRE reply in ${replyLanguage}. Ignore the language of any earlier messages in this conversation — the user may switch languages on purpose, and you must always match their MOST RECENT message. Do NOT translate to or default to any other language. Reply language: ${replyLanguage}.`
   );
 
   const completion = await openai.chat.completions.create({
