@@ -38,7 +38,7 @@ App only works on original iOS 14+ or Android 9+ (no rooted/jailbroken devices).
 App crash / login error: (1) force-close and reopen; (2) update to latest version; (3) uninstall and reinstall (account data safe). If persists → handover.
 
 PLANS:
-Plan tiers: Basic, Smart, Pro, Max (US naming). Higher tiers unlock more gyms and premium features.
+Plan tiers (US, monthly price employees pay, lowest to highest): Digital $0.00 (wellness apps only — e.g. Fabulous, Meditopia, MyFitnessPal), Starter $11.99, Starter+ $26.99, Basic $37.99, Bronze $64.99, Silver $109.99, Titanium $159.99, Gold $214.99, Platinum $289.99, Diamond $344.99 (most premium access). Higher tiers unlock more gyms and premium partners; each tier also includes the partners of all lower tiers. Example popular partners by tier: Starter → Crunch/Strava/Headspace; Basic → Anytime Fitness/The Y; Bronze → UFC Gym/SoulCycle; Silver → The Bar Method/Title Boxing; Titanium → Club Pilates/Life Time/Rumble Boxing; Gold → F45/Barry's/Orangetheory; Platinum → Pvolve/[solidcore]/Stretch Lab; Diamond → SLT/Dance Body/Pilates Reformer. These are US standard prices — actual price varies by country and company subsidy, so for the user's exact personal price tell them to check the Plans section in the app.
 Find partners: App > Explore > search by name or activity. "Included" = in your plan. "Partially Included" = Off-Peak hours only. "Not Included" = upgrade required.
 Off-Peak access: Lower-tier plans access some partners during off-peak windows. App shows them as "Partially Included". Tap clock icon on partner page for exact hours. Check-in allowed up to 5 minutes before the off-peak window starts.
 Free trial: 7 days for account holders only (not family members). Available only during the first 12 months of a company's Wellhub contract. Start: App > select plan > "Try X days for free" > review dates > enter payment. Cancel during trial: Profile > Settings > Account > Manage subscription > Cancel → IMMEDIATE (not end of cycle). If first plan is Digital Plan (free), free trial is lost even if upgrading. Refund for auto-charge after trial ends: not granted.
@@ -271,6 +271,11 @@ interface UserContext {
   fmFreeSlots?: number;
   checkInMay?: number;
   checkInJune?: number;
+  fmName?: string;
+  fmPlan?: string;
+  fmGym?: string | null;
+  accountNotes?: string;
+  suggestedPartner?: string;
 }
 
 export async function generateReply(
@@ -289,6 +294,14 @@ export async function generateReply(
     if (userContext.fmFreeSlots !== undefined) ctx.push(`- Available FM slots: ${userContext.fmFreeSlots}`);
     if (userContext.checkInMay !== undefined) ctx.push(`- Check-ins in May: ${userContext.checkInMay}`);
     if (userContext.checkInJune !== undefined) ctx.push(`- Check-ins in June: ${userContext.checkInJune}`);
+    if (userContext.fmName) {
+      const fmBits = [userContext.fmName];
+      if (userContext.fmPlan) fmBits.push(`on the ${userContext.fmPlan} plan`);
+      if (userContext.fmGym) fmBits.push(`loves ${userContext.fmGym}`);
+      ctx.push(`- Family member: ${fmBits.join(", ")}`);
+    }
+    if (userContext.accountNotes) ctx.push(`- Account status: ${userContext.accountNotes}`);
+    if (userContext.suggestedPartner) ctx.push(`- Partner recommendation (use ONLY if the user asks where else they can train or for alternatives to their favorite gym): ${userContext.suggestedPartner}`);
     dynamicParts.push(ctx.join("\n"));
   }
   if (searchContext) dynamicParts.push(`Context:\n${searchContext}`);
