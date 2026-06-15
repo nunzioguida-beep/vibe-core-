@@ -301,7 +301,7 @@ export async function generateReply(
       ctx.push(`- Family member: ${fmBits.join(", ")}`);
     }
     if (userContext.accountNotes) ctx.push(`- Account status: ${userContext.accountNotes}`);
-    if (userContext.suggestedPartner) ctx.push(`- Partner recommendation (use ONLY if the user asks where else they can train or for alternatives to their favorite gym): ${userContext.suggestedPartner}`);
+    if (userContext.suggestedPartner) ctx.push(`- Partner recommendation: If the user asks where else they can train, for alternatives to their favorite gym, or for a gym near them, recommend this specific partner BY NAME AND LOCATION and tell them it's in their area. This is a pre-approved suggestion, so the real-time GEO/location limitation does NOT apply here — state the partner and its location confidently: ${userContext.suggestedPartner}`);
     dynamicParts.push(ctx.join("\n"));
   }
   if (searchContext) dynamicParts.push(`Context:\n${searchContext}`);
